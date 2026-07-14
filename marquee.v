@@ -1,121 +1,159 @@
 // ============================================================
-// 七段数码管“流动跑马灯”
-// 开发板：Nexys A7-100T
-// 端口与 icf.xdc 一致
+// 七段数码管流动跑马灯（往返 + 残影）
+// 开发板：Nexys A7-100T，端口与 icf.xdc 一致
 //
-// 说明：
-//   动态扫描 = 驱动手段（同一时刻只点亮一位，靠视觉暂留看成多位同时亮）
-//   流动跑马灯 = 显示效果（亮点/图案在 8 位上从左到右或从右到左流动）
+// 效果：
+//   - 亮点在 8 位上来回往返（到头折返，不是转圈）
+//   - 速度快，带多级拖尾残影
+//   - LED 同步往返 + 残影
 //
-// 本设计：
-//   1) 数码管：单点（或短拖尾）在 8 位上循环流动
-//   2) LED：16 位单点追逐，同步流动
-//
-// 拨码开关：
-//   sw_i[0] = 0 : 向左流动
-//   sw_i[0] = 1 : 向右流动
-//   sw_i[1] = 0 : 数码管单点流动
-//   sw_i[1] = 1 : 数码管 3 位点拖尾流动（更像流水）
-//   sw_i[2] = 1 : 暂停
+// 开关：
+//   sw_i[1:0] : 速度 00最快 ~ 11最慢
+//   sw_i[2]   = 1 : 暂停
 // ============================================================
 
 module marquee (
     input  wire        clk,         // 100MHz
     input  wire        rstn,        // 低有效复位
-    input  wire [15:0] sw_i,        // 拨码开关
-    output reg  [15:0] led_o,       // LED 跑马灯
-    output reg  [7:0]  disp_seg_o,  // 段选 {DP,CG,CF,CE,CD,CC,CB,CA}
-    output reg  [7:0]  disp_an_o    // 位选 AN[7:0]，低有效
+    input  wire [15:0] sw_i,
+    output reg  [15:0] led_o,
+    output reg  [7:0]  disp_seg_o,  // {DP,CG,CF,CE,CD,CC,CB,CA}
+    output reg  [7:0]  disp_an_o    // AN 低有效
 );
 
     // ------------------------------------------------------------
-    // 分频
-    //   clkdiv[14] ~ 3 kHz  : 数码管动态扫描（必须快，防闪烁）
-    //   clkdiv[24] ~ 3 Hz   : 跑马灯流动步进（必须慢，才能看清移动）
+    // 扫描分频：100MHz / 2^15 ≈ 3kHz，8 位扫描无闪烁
     // ------------------------------------------------------------
-    reg [26:0] clkdiv;
+    reg [14:0] scan_div;
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) scan_div <= 15'd0;
+        else       scan_div <= scan_div + 15'd1;
+    end
+    wire clk_scan = scan_div[14];
+
+    // ------------------------------------------------------------
+    // 流动步进：约 12.5 ~ 50 步/秒（默认最快，残影明显）
+    // sw[1:0] = 00 最快 ... 11 最慢
+    // ------------------------------------------------------------
+    reg [22:0] move_div;
+    reg [22:0] move_max;
+    reg        move_tick;
+
+    always @(*) begin
+        case (sw_i[1:0])
+            2'b00:   move_max = 23'd2_000_000;  // ~50 Hz
+            2'b01:   move_max = 23'd3_000_000;  // ~33 Hz
+            2'b10:   move_max = 23'd5_000_000;  // ~20 Hz
+            default: move_max = 23'd8_000_000;  // ~12.5 Hz
+        endcase
+    end
 
     always @(posedge clk or negedge rstn) begin
-        if (!rstn)
-            clkdiv <= 27'd0;
-        else
-            clkdiv <= clkdiv + 27'd1;
+        if (!rstn) begin
+            move_div  <= 23'd0;
+            move_tick <= 1'b0;
+        end
+        else if (sw_i[2]) begin
+            move_tick <= 1'b0;
+        end
+        else if (move_div >= move_max) begin
+            move_div  <= 23'd0;
+            move_tick <= 1'b1;
+        end
+        else begin
+            move_div  <= move_div + 23'd1;
+            move_tick <= 1'b0;
+        end
     end
 
-    wire clk_scan = clkdiv[14];
-    wire clk_move = clkdiv[24];
-
     // ============================================================
-    // 流动位置：0~7 对应 8 个数码管
+    // 往返：head 在 0..7 之间来回折返
     // ============================================================
-    reg [2:0] head;   // 流动“龙头”所在位
+    reg [2:0] head;
+    reg       dir;   // 0:+  1:-
 
-    always @(posedge clk_move or negedge rstn) begin
-        if (!rstn)
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
             head <= 3'd0;
-        else if (!sw_i[2]) begin
-            if (sw_i[0])
-                head <= head + 3'd1;   // 向右流
-            else
-                head <= head - 3'd1;   // 向左流
+            dir  <= 1'b0;
+        end
+        else if (move_tick) begin
+            if (!dir) begin
+                if (head == 3'd7) begin
+                    head <= 3'd6;
+                    dir  <= 1'b1;
+                end
+                else
+                    head <= head + 3'd1;
+            end
+            else begin
+                if (head == 3'd0) begin
+                    head <= 3'd1;
+                    dir  <= 1'b0;
+                end
+                else
+                    head <= head - 3'd1;
+            end
         end
     end
-
-    // 每一位是否点亮（流动图案）
-    // sw_i[1]=0 : 仅 head 一位亮（经典单点跑马）
-    // sw_i[1]=1 : head 及后两位点亮，形成拖尾流水
-    wire [2:0] t1 = head - 3'd1;
-    wire [2:0] t2 = head - 3'd2;
-
-    reg [7:0] lit;   // lit[i]=1 表示第 i 位要显示图案
-    integer k;
-    always @(*) begin
-        lit = 8'h00;
-        lit[head] = 1'b1;
-        if (sw_i[1]) begin
-            lit[t1] = 1'b1;
-            lit[t2] = 1'b1;
-        end
-    end
-
-    // 流动亮位显示字符 "8"（全段最醒目）；也可改成 "0"/"-"
-    // 灭位输出全灭
-    localparam [3:0] ON_DIGIT = 4'h8;
 
     // ============================================================
-    // 动态扫描：高速轮流点亮 8 位
-    // 同一时刻只选中一位，并输出该位段码
+    // 残影：保存最近 5 个位置，龙头最亮、尾巴渐暗
+    // ============================================================
+    reg [2:0] trail0, trail1, trail2, trail3, trail4;
+
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            trail0 <= 3'd0;
+            trail1 <= 3'd0;
+            trail2 <= 3'd0;
+            trail3 <= 3'd0;
+            trail4 <= 3'd0;
+        end
+        else if (move_tick) begin
+            trail4 <= trail3;
+            trail3 <= trail2;
+            trail2 <= trail1;
+            trail1 <= trail0;
+            trail0 <= head;
+        end
+    end
+
+    // level[i]: 0灭 1最淡 ... 5最亮
+    reg [2:0] level [0:7];
+    integer i;
+    always @(*) begin
+        for (i = 0; i < 8; i = i + 1)
+            level[i] = 3'd0;
+        level[trail4] = 3'd1;
+        level[trail3] = 3'd2;
+        level[trail2] = 3'd3;
+        level[trail1] = 3'd4;
+        level[trail0] = 3'd5;
+    end
+
+    // ============================================================
+    // 动态扫描 + 按亮度输出不同段码（制造残影层次）
     // ============================================================
     reg [2:0] scan;
-
     always @(posedge clk_scan or negedge rstn) begin
-        if (!rstn)
-            scan <= 3'd0;
-        else
-            scan <= scan + 3'd1;
+        if (!rstn) scan <= 3'd0;
+        else       scan <= scan + 3'd1;
     end
 
-    // 当前扫描位：亮则显示 8，灭则空白
-    wire [3:0] digit = lit[scan] ? ON_DIGIT : 4'hF; // F 仅作占位，下面用 blank 区分
-    wire       blank = ~lit[scan];
-
-    // 共阳极段码
-    reg [7:0] seg_data;
+    // 共阳极：8 全亮 > 0 > 5 > - > 小数点 > 灭
+    reg [7:0] seg_out;
     always @(*) begin
-        if (blank)
-            seg_data = 8'hFF;          // 全灭
-        else begin
-            case (ON_DIGIT)
-                4'h0:    seg_data = 8'hC0;
-                4'h1:    seg_data = 8'hF9;
-                4'h8:    seg_data = 8'h80;  // “8” 全段亮，流动最明显
-                4'hA:    seg_data = 8'h88;
-                default: seg_data = 8'h80;
-            endcase
-        end
+        case (level[scan])
+            3'd5:    seg_out = 8'h80; // 8  龙头
+            3'd4:    seg_out = 8'hC0; // 0
+            3'd3:    seg_out = 8'h92; // 5
+            3'd2:    seg_out = 8'hBF; // -
+            3'd1:    seg_out = 8'h7F; // 仅 DP，最淡
+            default: seg_out = 8'hFF; // 灭
+        endcase
     end
 
-    // 输出位选 + 段码
     always @(posedge clk_scan or negedge rstn) begin
         if (!rstn) begin
             disp_an_o  <= 8'hFF;
@@ -133,34 +171,59 @@ module marquee (
                 3'd7:    disp_an_o <= 8'b0111_1111;
                 default: disp_an_o <= 8'hFF;
             endcase
-            disp_seg_o <= seg_data;
+            disp_seg_o <= seg_out;
         end
     end
 
     // ============================================================
-    // LED 同步流动跑马灯（16 位单点）
+    // LED 往返 + 残影
     // ============================================================
-    reg [3:0] led_pos;
+    reg [3:0] led_head;
+    reg       led_dir;
+    reg [3:0] lt0, lt1, lt2, lt3, lt4;
 
-    always @(posedge clk_move or negedge rstn) begin
-        if (!rstn)
-            led_pos <= 4'd0;
-        else if (!sw_i[2]) begin
-            if (sw_i[0])
-                led_pos <= led_pos + 4'd1;
-            else
-                led_pos <= led_pos - 4'd1;
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            led_head <= 4'd0;
+            led_dir  <= 1'b0;
+        end
+        else if (move_tick) begin
+            if (!led_dir) begin
+                if (led_head == 4'd15) begin
+                    led_head <= 4'd14;
+                    led_dir  <= 1'b1;
+                end
+                else
+                    led_head <= led_head + 4'd1;
+            end
+            else begin
+                if (led_head == 4'd0) begin
+                    led_head <= 4'd1;
+                    led_dir  <= 1'b0;
+                end
+                else
+                    led_head <= led_head - 4'd1;
+            end
+        end
+    end
+
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            lt0 <= 4'd0; lt1 <= 4'd0; lt2 <= 4'd0;
+            lt3 <= 4'd0; lt4 <= 4'd0;
+        end
+        else if (move_tick) begin
+            lt4 <= lt3; lt3 <= lt2; lt2 <= lt1; lt1 <= lt0; lt0 <= led_head;
         end
     end
 
     always @(*) begin
         led_o = 16'h0000;
-        led_o[led_pos] = 1'b1;
-        // 拖尾模式时 LED 也带 2 点尾巴
-        if (sw_i[1]) begin
-            led_o[led_pos - 4'd1] = 1'b1;
-            led_o[led_pos - 4'd2] = 1'b1;
-        end
+        led_o[lt4] = 1'b1;
+        led_o[lt3] = 1'b1;
+        led_o[lt2] = 1'b1;
+        led_o[lt1] = 1'b1;
+        led_o[lt0] = 1'b1;
     end
 
 endmodule
