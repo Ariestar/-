@@ -1,15 +1,16 @@
 // ============================================================
-// 七段数码管流动跑马灯（往返 + 残影）
+// 最自然的跑马灯（板子自带那种：单点往返）+ PWM 亮度可调
 // 开发板：Nexys A7-100T，端口与 icf.xdc 一致
 //
 // 效果：
-//   - 亮点在 8 位上来回往返（到头折返，不是转圈）
-//   - 速度快，带多级拖尾残影
-//   - LED 同步往返 + 残影
+//   - 8 个数码管 + 16 个 LED 上只有一个亮点往返（到头折返）
+//   - 亮点平滑，无残影，就是板子自带那种朴素跑马灯
+//   - LED 与数码管同步走动
 //
 // 开关：
-//   sw_i[1:0] : 速度 00最快 ~ 11最慢
+//   sw_i[1:0] : 速度  00最快 ~ 11最慢
 //   sw_i[2]   = 1 : 暂停
+//   sw_i[5:3] : 亮度  000最暗(灭) ~ 111最亮（共 8 级，PWM 调光）
 // ============================================================
 
 module marquee (
@@ -22,6 +23,18 @@ module marquee (
 );
 
     // ------------------------------------------------------------
+    // 亮度 PWM：100MHz / 2^14 ≈ 6.1kHz，远高于闪烁临界值
+    //   pwm_cnt 周期 0..16383，高比 = duty/8
+    // ------------------------------------------------------------
+    reg [13:0] pwm_cnt;
+    always @(posedge clk or negedge rstn) begin
+        if (!rstn) pwm_cnt <= 14'd0;
+        else       pwm_cnt <= pwm_cnt + 14'd1;
+    end
+    wire [2:0] duty  = sw_i[5:3];
+    wire       pwm_on = (pwm_cnt[13:11] < duty);   // 8 级占空比
+
+    // ------------------------------------------------------------
     // 扫描分频：100MHz / 2^15 ≈ 3kHz，8 位扫描无闪烁
     // ------------------------------------------------------------
     reg [14:0] scan_div;
@@ -32,7 +45,7 @@ module marquee (
     wire clk_scan = scan_div[14];
 
     // ------------------------------------------------------------
-    // 流动步进：约 12.5 ~ 50 步/秒（默认最快，残影明显）
+    // 流动步进：约 12.5 ~ 50 步/秒
     // sw[1:0] = 00 最快 ... 11 最慢
     // ------------------------------------------------------------
     reg [22:0] move_div;
@@ -67,120 +80,41 @@ module marquee (
     end
 
     // ============================================================
-    // 往返：head 在 0..7 之间来回折返
+    // 数码管往返：head 在 0..7 之间来回折返（单点亮）
     // ============================================================
-    reg [2:0] head;
-    reg       dir;   // 0:+  1:-
+    reg [2:0] seg_head;
+    reg       seg_dir;   // 0:+  1:-
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
-            head <= 3'd0;
-            dir  <= 1'b0;
+            seg_head <= 3'd0;
+            seg_dir  <= 1'b0;
         end
         else if (move_tick) begin
-            if (!dir) begin
-                if (head == 3'd7) begin
-                    head <= 3'd6;
-                    dir  <= 1'b1;
+            if (!seg_dir) begin
+                if (seg_head == 3'd7) begin
+                    seg_head <= 3'd6;
+                    seg_dir  <= 1'b1;
                 end
                 else
-                    head <= head + 3'd1;
+                    seg_head <= seg_head + 3'd1;
             end
             else begin
-                if (head == 3'd0) begin
-                    head <= 3'd1;
-                    dir  <= 1'b0;
+                if (seg_head == 3'd0) begin
+                    seg_head <= 3'd1;
+                    seg_dir  <= 1'b0;
                 end
                 else
-                    head <= head - 3'd1;
+                    seg_head <= seg_head - 3'd1;
             end
         end
     end
 
     // ============================================================
-    // 残影：保存最近 5 个位置，龙头最亮、尾巴渐暗
-    // ============================================================
-    reg [2:0] trail0, trail1, trail2, trail3, trail4;
-
-    always @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            trail0 <= 3'd0;
-            trail1 <= 3'd0;
-            trail2 <= 3'd0;
-            trail3 <= 3'd0;
-            trail4 <= 3'd0;
-        end
-        else if (move_tick) begin
-            trail4 <= trail3;
-            trail3 <= trail2;
-            trail2 <= trail1;
-            trail1 <= trail0;
-            trail0 <= head;
-        end
-    end
-
-    // level[i]: 0灭 1最淡 ... 5最亮
-    reg [2:0] level [0:7];
-    integer i;
-    always @(*) begin
-        for (i = 0; i < 8; i = i + 1)
-            level[i] = 3'd0;
-        level[trail4] = 3'd1;
-        level[trail3] = 3'd2;
-        level[trail2] = 3'd3;
-        level[trail1] = 3'd4;
-        level[trail0] = 3'd5;
-    end
-
-    // ============================================================
-    // 动态扫描 + 按亮度输出不同段码（制造残影层次）
-    // ============================================================
-    reg [2:0] scan;
-    always @(posedge clk_scan or negedge rstn) begin
-        if (!rstn) scan <= 3'd0;
-        else       scan <= scan + 3'd1;
-    end
-
-    // 共阳极：8 全亮 > 0 > 5 > - > 小数点 > 灭
-    reg [7:0] seg_out;
-    always @(*) begin
-        case (level[scan])
-            3'd5:    seg_out = 8'h80; // 8  龙头
-            3'd4:    seg_out = 8'hC0; // 0
-            3'd3:    seg_out = 8'h92; // 5
-            3'd2:    seg_out = 8'hBF; // -
-            3'd1:    seg_out = 8'h7F; // 仅 DP，最淡
-            default: seg_out = 8'hFF; // 灭
-        endcase
-    end
-
-    always @(posedge clk_scan or negedge rstn) begin
-        if (!rstn) begin
-            disp_an_o  <= 8'hFF;
-            disp_seg_o <= 8'hFF;
-        end
-        else begin
-            case (scan)
-                3'd0:    disp_an_o <= 8'b1111_1110;
-                3'd1:    disp_an_o <= 8'b1111_1101;
-                3'd2:    disp_an_o <= 8'b1111_1011;
-                3'd3:    disp_an_o <= 8'b1111_0111;
-                3'd4:    disp_an_o <= 8'b1110_1111;
-                3'd5:    disp_an_o <= 8'b1101_1111;
-                3'd6:    disp_an_o <= 8'b1011_1111;
-                3'd7:    disp_an_o <= 8'b0111_1111;
-                default: disp_an_o <= 8'hFF;
-            endcase
-            disp_seg_o <= seg_out;
-        end
-    end
-
-    // ============================================================
-    // LED 往返 + 残影
+    // LED 往返：led_head 在 0..15 之间来回折返
     // ============================================================
     reg [3:0] led_head;
     reg       led_dir;
-    reg [3:0] lt0, lt1, lt2, lt3, lt4;
 
     always @(posedge clk or negedge rstn) begin
         if (!rstn) begin
@@ -207,23 +141,54 @@ module marquee (
         end
     end
 
-    always @(posedge clk or negedge rstn) begin
+    // ============================================================
+    // 数码管动态扫描：只点亮当前 head 所在的位
+    //   共阳极：段为低亮，位为低选通；不点亮位置段输出全高（灭）
+    //   PWM 期间通过把段拉成全高实现调光
+    // ============================================================
+    reg [2:0] scan;
+    always @(posedge clk_scan or negedge rstn) begin
+        if (!rstn) scan <= 3'd0;
+        else       scan <= scan + 3'd1;
+    end
+
+    // 单位点亮时显示 "8"（0x80），否则灭（0xFF）
+    wire [7:0] seg_glyph = (scan == seg_head) ? 8'h80 : 8'hFF;
+    wire       seg_dim   = (scan == seg_head) & pwm_on;   // 该位才参与调光
+    wire [7:0] seg_final = seg_dim ? 8'h80 : 8'hFF;       // PWM off 时切到全灭
+
+    always @(posedge clk_scan or negedge rstn) begin
         if (!rstn) begin
-            lt0 <= 4'd0; lt1 <= 4'd0; lt2 <= 4'd0;
-            lt3 <= 4'd0; lt4 <= 4'd0;
+            disp_an_o  <= 8'hFF;
+            disp_seg_o <= 8'hFF;
         end
-        else if (move_tick) begin
-            lt4 <= lt3; lt3 <= lt2; lt2 <= lt1; lt1 <= lt0; lt0 <= led_head;
+        else begin
+            case (scan)
+                3'd0:    disp_an_o <= 8'b1111_1110;
+                3'd1:    disp_an_o <= 8'b1111_1101;
+                3'd2:    disp_an_o <= 8'b1111_1011;
+                3'd3:    disp_an_o <= 8'b1111_0111;
+                3'd4:    disp_an_o <= 8'b1110_1111;
+                3'd5:    disp_an_o <= 8'b1101_1111;
+                3'd6:    disp_an_o <= 8'b1011_1111;
+                3'd7:    disp_an_o <= 8'b0111_1111;
+                default: disp_an_o <= 8'hFF;
+            endcase
+            disp_seg_o <= seg_final;
         end
     end
 
+    // ============================================================
+    // LED 输出：仅点亮 led_head 一位，PWM 调光
+    // ============================================================
     always @(*) begin
-        led_o = 16'h0000;
-        led_o[lt4] = 1'b1;
-        led_o[lt3] = 1'b1;
-        led_o[lt2] = 1'b1;
-        led_o[lt1] = 1'b1;
-        led_o[lt0] = 1'b1;
+        if (pwm_on) begin
+            led_o = 16'h0000;
+            led_o[led_head] = 1'b1;
+        end
+        else begin
+            led_o = 16'h0000;
+        end
     end
 
 endmodule
