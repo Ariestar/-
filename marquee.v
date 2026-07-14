@@ -1,19 +1,22 @@
 // ============================================================
-// 八位七段数码管动态显示 + 跑马灯
+// 七段数码管“流动跑马灯”
 // 开发板：Nexys A7-100T
 // 端口与 icf.xdc 一致
 //
-// 功能：
-//   1) 100MHz 分频，动态扫描 8 位共阳极数码管
-//   2) 数码管跑马灯：十六进制字符在 8 位上滚动
-//   3) LED 跑马灯：16 个 LED 依次点亮形成追逐效果
+// 说明：
+//   动态扫描 = 驱动手段（同一时刻只点亮一位，靠视觉暂留看成多位同时亮）
+//   流动跑马灯 = 显示效果（亮点/图案在 8 位上从左到右或从右到左流动）
+//
+// 本设计：
+//   1) 数码管：单点（或短拖尾）在 8 位上循环流动
+//   2) LED：16 位单点追逐，同步流动
 //
 // 拨码开关：
-//   sw_i[0] = 0 : 数码管向左滚动
-//   sw_i[0] = 1 : 数码管向右滚动
-//   sw_i[1] = 0 : LED 向左跑
-//   sw_i[1] = 1 : LED 向右跑
-//   sw_i[2] = 1 : 暂停滚动（保持当前画面）
+//   sw_i[0] = 0 : 向左流动
+//   sw_i[0] = 1 : 向右流动
+//   sw_i[1] = 0 : 数码管单点流动
+//   sw_i[1] = 1 : 数码管 3 位点拖尾流动（更像流水）
+//   sw_i[2] = 1 : 暂停
 // ============================================================
 
 module marquee (
@@ -26,10 +29,9 @@ module marquee (
 );
 
     // ------------------------------------------------------------
-    // 系统分频计数器（复用高位得到多种慢时钟）
-    // 100MHz / 2^n
-    //   [14] ~ 3.05 kHz  : 数码管扫描
-    //   [24] ~ 3.0  Hz   : 跑马灯步进（约 0.33s 一格）
+    // 分频
+    //   clkdiv[14] ~ 3 kHz  : 数码管动态扫描（必须快，防闪烁）
+    //   clkdiv[24] ~ 3 Hz   : 跑马灯流动步进（必须慢，才能看清移动）
     // ------------------------------------------------------------
     reg [26:0] clkdiv;
 
@@ -40,47 +42,49 @@ module marquee (
             clkdiv <= clkdiv + 27'd1;
     end
 
-    wire clk_scan = clkdiv[14];   // 扫描时钟
-    wire clk_move = clkdiv[24];   // 滚动时钟
+    wire clk_scan = clkdiv[14];
+    wire clk_move = clkdiv[24];
 
     // ============================================================
-    // 一、数码管跑马灯数据
-    // 用 16 个十六进制字符构成循环序列，窗口取 8 位显示
-    // 序列：0 1 2 3 4 5 6 7 8 9 A B C D E F
+    // 流动位置：0~7 对应 8 个数码管
     // ============================================================
-    reg [3:0] pattern [0:15];
-    reg [3:0] offset;             // 滚动起点
+    reg [2:0] head;   // 流动“龙头”所在位
 
-    integer i;
-    initial begin
-        for (i = 0; i < 16; i = i + 1)
-            pattern[i] = i[3:0];
-    end
-
-    // 滚动：每个 move 时钟移动一格
     always @(posedge clk_move or negedge rstn) begin
         if (!rstn)
-            offset <= 4'd0;
+            head <= 3'd0;
         else if (!sw_i[2]) begin
             if (sw_i[0])
-                offset <= offset + 4'd1;   // 右滚：起点递增
+                head <= head + 3'd1;   // 向右流
             else
-                offset <= offset - 4'd1;   // 左滚：起点递减
+                head <= head - 3'd1;   // 向左流
         end
     end
 
-    // 当前 8 位显示内容（每 4bit 一个字符）
-    wire [3:0] dig0 = pattern[(offset + 4'd0) & 4'hF];
-    wire [3:0] dig1 = pattern[(offset + 4'd1) & 4'hF];
-    wire [3:0] dig2 = pattern[(offset + 4'd2) & 4'hF];
-    wire [3:0] dig3 = pattern[(offset + 4'd3) & 4'hF];
-    wire [3:0] dig4 = pattern[(offset + 4'd4) & 4'hF];
-    wire [3:0] dig5 = pattern[(offset + 4'd5) & 4'hF];
-    wire [3:0] dig6 = pattern[(offset + 4'd6) & 4'hF];
-    wire [3:0] dig7 = pattern[(offset + 4'd7) & 4'hF];
+    // 每一位是否点亮（流动图案）
+    // sw_i[1]=0 : 仅 head 一位亮（经典单点跑马）
+    // sw_i[1]=1 : head 及后两位点亮，形成拖尾流水
+    wire [2:0] t1 = head - 3'd1;
+    wire [2:0] t2 = head - 3'd2;
+
+    reg [7:0] lit;   // lit[i]=1 表示第 i 位要显示图案
+    integer k;
+    always @(*) begin
+        lit = 8'h00;
+        lit[head] = 1'b1;
+        if (sw_i[1]) begin
+            lit[t1] = 1'b1;
+            lit[t2] = 1'b1;
+        end
+    end
+
+    // 流动亮位显示字符 "8"（全段最醒目）；也可改成 "0"/"-"
+    // 灭位输出全灭
+    localparam [3:0] ON_DIGIT = 4'h8;
 
     // ============================================================
-    // 二、8 位动态扫描
+    // 动态扫描：高速轮流点亮 8 位
+    // 同一时刻只选中一位，并输出该位段码
     // ============================================================
     reg [2:0] scan;
 
@@ -91,44 +95,24 @@ module marquee (
             scan <= scan + 3'd1;
     end
 
-    // 取当前位数字
-    reg [3:0] digit;
-    always @(*) begin
-        case (scan)
-            3'd0:    digit = dig0;  // 最右
-            3'd1:    digit = dig1;
-            3'd2:    digit = dig2;
-            3'd3:    digit = dig3;
-            3'd4:    digit = dig4;
-            3'd5:    digit = dig5;
-            3'd6:    digit = dig6;
-            3'd7:    digit = dig7;  // 最左
-            default: digit = 4'h0;
-        endcase
-    end
+    // 当前扫描位：亮则显示 8，灭则空白
+    wire [3:0] digit = lit[scan] ? ON_DIGIT : 4'hF; // F 仅作占位，下面用 blank 区分
+    wire       blank = ~lit[scan];
 
-    // 共阳极段码：{DP,CG,CF,CE,CD,CC,CB,CA}
+    // 共阳极段码
     reg [7:0] seg_data;
     always @(*) begin
-        case (digit)
-            4'h0:    seg_data = 8'hC0;
-            4'h1:    seg_data = 8'hF9;
-            4'h2:    seg_data = 8'hA4;
-            4'h3:    seg_data = 8'hB0;
-            4'h4:    seg_data = 8'h99;
-            4'h5:    seg_data = 8'h92;
-            4'h6:    seg_data = 8'h82;
-            4'h7:    seg_data = 8'hF8;
-            4'h8:    seg_data = 8'h80;
-            4'h9:    seg_data = 8'h90;
-            4'hA:    seg_data = 8'h88;
-            4'hB:    seg_data = 8'h83;
-            4'hC:    seg_data = 8'hC6;
-            4'hD:    seg_data = 8'hA1;
-            4'hE:    seg_data = 8'h86;
-            4'hF:    seg_data = 8'h84;
-            default: seg_data = 8'hFF;
-        endcase
+        if (blank)
+            seg_data = 8'hFF;          // 全灭
+        else begin
+            case (ON_DIGIT)
+                4'h0:    seg_data = 8'hC0;
+                4'h1:    seg_data = 8'hF9;
+                4'h8:    seg_data = 8'h80;  // “8” 全段亮，流动最明显
+                4'hA:    seg_data = 8'h88;
+                default: seg_data = 8'h80;
+            endcase
+        end
     end
 
     // 输出位选 + 段码
@@ -154,7 +138,7 @@ module marquee (
     end
 
     // ============================================================
-    // 三、LED 跑马灯：16 位单点追逐
+    // LED 同步流动跑马灯（16 位单点）
     // ============================================================
     reg [3:0] led_pos;
 
@@ -162,7 +146,7 @@ module marquee (
         if (!rstn)
             led_pos <= 4'd0;
         else if (!sw_i[2]) begin
-            if (sw_i[1])
+            if (sw_i[0])
                 led_pos <= led_pos + 4'd1;
             else
                 led_pos <= led_pos - 4'd1;
@@ -172,6 +156,11 @@ module marquee (
     always @(*) begin
         led_o = 16'h0000;
         led_o[led_pos] = 1'b1;
+        // 拖尾模式时 LED 也带 2 点尾巴
+        if (sw_i[1]) begin
+            led_o[led_pos - 4'd1] = 1'b1;
+            led_o[led_pos - 4'd2] = 1'b1;
+        end
     end
 
 endmodule
