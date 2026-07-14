@@ -1,0 +1,615 @@
+#-----------------------------------------------------------
+# Vivado v2018.1 (64-bit)
+# SW Build 2188600 on Wed Apr  4 18:40:38 MDT 2018
+# IP Build 2185939 on Wed Apr  4 20:55:05 MDT 2018
+# Start of session at: Tue Jul 14 16:17:18 2026
+# Process ID: 13524
+# Current directory: D:/Vivado2018/led_runner/led_runner.runs/impl_1
+# Command line: vivado.exe -log led_runner.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source led_runner.tcl -notrace
+# Log file: D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner.vdi
+# Journal file: D:/Vivado2018/led_runner/led_runner.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source led_runner.tcl -notrace
+Command: link_design -top led_runner -part xc7a100tcsg324-1
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Netlist 29-17] Analyzing 12 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc]
+CRITICAL WARNING: [Designutils 20-1307] Command '`timescale' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:1]
+CRITICAL WARNING: [Designutils 20-1307] Command 'module' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:3]
+CRITICAL WARNING: [Designutils 20-1307] Command 'input' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:4]
+CRITICAL WARNING: [Designutils 20-1307] Command 'input' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:5]
+CRITICAL WARNING: [Designutils 20-1307] Command 'output' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:6]
+CRITICAL WARNING: [Designutils 20-1307] Command 'output' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:7]
+CRITICAL WARNING: [Designutils 20-1307] Command ')' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:8]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:10]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* Nexys A7 时钟为 100 MHz。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:11]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 7,000,000 个时钟周期约为 0.07 秒。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:12]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 数值越小，蛇移动得越快。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:13]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:14]
+CRITICAL WARNING: [Designutils 20-1307] Command 'localparam' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:15]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:17]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 路径编号共 0～25：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:18]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:19]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 0～7   ：顶部 A 段，从左向右' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:20]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 8      ：最右侧 B 段，向下转弯' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:21]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 9～16  ：中间 G 段，从右向左' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:22]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 17     ：最左侧 E 段，向下转弯' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:23]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 18～25 ：底部 D 段，从左向右' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:24]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:25]
+CRITICAL WARNING: [Designutils 20-1307] Command 'localparam' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:26]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/* 数码管动态扫描计数器 */' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:28]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:29]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/* 控制蛇移动速度的分频计数器 */' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:31]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:32]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:34]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 蛇身体的位置：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:35]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* snake_head：蛇头' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:36]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* snake_body1～3：逐渐变暗的尾巴' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:37]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:38]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:39]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:40]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:41]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:42]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:44]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 移动方向：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:45]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 0：沿路径正向移动' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:46]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 1：沿路径反向移动' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:47]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:48]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:49]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:51]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 用于尾巴亮度控制：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:52]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 高频 PWM 让尾巴逐渐变暗。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:53]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:54]
+CRITICAL WARNING: [Designutils 20-1307] Command 'reg' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:55]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/* 当前正在扫描的数码管位置 */' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:57]
+CRITICAL WARNING: [Designutils 20-1307] Command 'wire' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:58]
+CRITICAL WARNING: [Designutils 20-1307] Command 'assign' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:60]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:63]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 根据当前数码管位置，计算它的各段在蛇形路径中的编号。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:64]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:65]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* scan_sel = 0：最右侧数码管' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:66]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* scan_sel = 7：最左侧数码管' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:67]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:68]
+CRITICAL WARNING: [Designutils 20-1307] Command 'wire' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:69]
+CRITICAL WARNING: [Designutils 20-1307] Command 'wire' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:70]
+CRITICAL WARNING: [Designutils 20-1307] Command 'wire' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:71]
+CRITICAL WARNING: [Designutils 20-1307] Command 'assign' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:73]
+CRITICAL WARNING: [Designutils 20-1307] Command 'assign' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:74]
+CRITICAL WARNING: [Designutils 20-1307] Command 'assign' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:75]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:78]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 数码管动态扫描与 PWM 计数。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:79]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:80]
+CRITICAL WARNING: [Designutils 20-1307] Command 'always' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:81]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:82]
+CRITICAL WARNING: [Designutils 20-1307] Command 'scan_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:83]
+CRITICAL WARNING: [Designutils 20-1307] Command 'pwm_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:84]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:85]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:86]
+CRITICAL WARNING: [Designutils 20-1307] Command 'scan_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:87]
+CRITICAL WARNING: [Designutils 20-1307] Command 'pwm_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:88]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:89]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:90]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:93]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 蛇形移动逻辑。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:94]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:95]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 蛇头先移动，身体各节依次跟随前一节原来的位置。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:96]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:97]
+CRITICAL WARNING: [Designutils 20-1307] Command 'always' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:98]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:99]
+CRITICAL WARNING: [Designutils 20-1307] Command 'move_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:100]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_head' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:102]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body1' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:103]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body2' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:104]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body3' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:105]
+CRITICAL WARNING: [Designutils 20-1307] Command 'direction' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:107]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:108]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:109]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:110]
+CRITICAL WARNING: [Designutils 20-1307] Command 'move_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:111]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/* 尾巴跟随蛇头 */' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:113]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body3' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:114]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body2' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:115]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_body1' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:116]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:118]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:119]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 正向移动：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:120]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 到达路径末端后立即折返。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:121]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:122]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:123]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_head' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:124]
+CRITICAL WARNING: [Designutils 20-1307] Command 'direction' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:125]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:126]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:127]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_head' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:128]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:129]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:130]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:131]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:132]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 反向移动：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:133]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 回到路径起点后再次折返。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:134]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:135]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:136]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_head' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:137]
+CRITICAL WARNING: [Designutils 20-1307] Command 'direction' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:138]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:139]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:140]
+CRITICAL WARNING: [Designutils 20-1307] Command 'snake_head' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:141]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:142]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:143]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:144]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:145]
+CRITICAL WARNING: [Designutils 20-1307] Command 'move_counter' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:146]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:147]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:148]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:149]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:152]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 判断某个路径位置是否应当点亮。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:153]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:154]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 蛇头：100% 亮度' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:155]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 第一节尾巴：约 75% 亮度' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:156]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 第二节尾巴：约 50% 亮度' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:157]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 第三节尾巴：约 25% 亮度' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:158]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:159]
+CRITICAL WARNING: [Designutils 20-1307] Command 'function' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:160]
+CRITICAL WARNING: [Designutils 20-1307] Command 'input' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:161]
+CRITICAL WARNING: [Designutils 20-1307] Command 'begin' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:163]
+CRITICAL WARNING: [Designutils 20-1307] Command 'if' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:164]
+CRITICAL WARNING: [Designutils 20-1307] Command 'segment_visible' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:165]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:167]
+CRITICAL WARNING: [Designutils 20-1307] Command 'segment_visible' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:168]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:170]
+CRITICAL WARNING: [Designutils 20-1307] Command 'segment_visible' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:171]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:173]
+CRITICAL WARNING: [Designutils 20-1307] Command 'segment_visible' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:174]
+CRITICAL WARNING: [Designutils 20-1307] Command 'else' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:176]
+CRITICAL WARNING: [Designutils 20-1307] Command 'segment_visible' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:177]
+CRITICAL WARNING: [Designutils 20-1307] Command 'end' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:178]
+CRITICAL WARNING: [Designutils 20-1307] Command 'endfunction' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:179]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:182]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 数码管显示逻辑。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:183]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:184]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* disp_seg_o[7:0] 对应：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:185]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* {DP, G, F, E, D, C, B, A}' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:186]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:187]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* Nexys A7 数码管为低电平有效：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:188]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 0：点亮' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:189]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 1：熄灭' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:190]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:191]
+CRITICAL WARNING: [Designutils 20-1307] Command 'always' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:192]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/* 默认关闭所有笔画 */' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:194]
+CRITICAL WARNING: [Designutils 20-1307] Command 'disp_seg_o' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:195]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:197]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 当前数码管位选。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:198]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 每一时刻只选中一个数码管。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:199]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:200]
+CRITICAL WARNING: [Designutils 20-1307] Command 'case' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:201]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd0:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:202]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd1:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:203]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd2:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:204]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd3:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:205]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd4:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:206]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd5:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:207]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd6:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:208]
+CRITICAL WARNING: [Designutils 20-1307] Command '3'd7:' is not supported in the xdc constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:209]
+INFO: [Common 17-14] Message 'Designutils 20-1307' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:209]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:216]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 顶部 A 段。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:217]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* A 对应 disp_seg_o[0]。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:218]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:219]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:224]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 最右侧的 B 段：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:225]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 连接顶部路径和中间路径，形成向下转弯。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:226]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:227]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:232]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 中间 G 段。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:233]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* G 对应 disp_seg_o[6]。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:234]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:235]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:240]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 最左侧的 E 段：' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:241]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 连接中间路径和底部路径，形成第二次转弯。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:242]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:243]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:248]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 底部 D 段。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:249]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* D 对应 disp_seg_o[3]。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:250]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '*/' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:251]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '/*' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:256]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 蛇头所在的数码管点亮小数点 DP，' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:257]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command '* 作为蛇头的"眼睛"。' found in constraint file. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:258]
+INFO: [Common 17-14] Message 'Designutils 20-970' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc:258]
+Finished Parsing XDC File [D:/Vivado2018/led_runner/led_runner.srcs/constrs_1/new/led_runner.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+9 Infos, 0 Warnings, 200 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 625.297 ; gain = 321.434
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.314 . Memory (MB): peak = 639.082 ; gain = 13.785
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: bfc5ba2e
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 0 cells and removed 0 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 2 Constant propagation | Checksum: bfc5ba2e
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 0 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: 66a254dd
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 0 cells
+
+Phase 4 BUFG optimization
+Phase 4 BUFG optimization | Checksum: 66a254dd
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase BUFG optimization created 0 cells and removed 0 cells
+
+Phase 5 Shift Register Optimization
+Phase 5 Shift Register Optimization | Checksum: 66a254dd
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 6 Post Processing Netlist
+Phase 6 Post Processing Netlist | Checksum: 66a254dd
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1194.922 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 66a254dd
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1194.922 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+Ending Power Optimization Task | Checksum: b37dc960
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+25 Infos, 0 Warnings, 200 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:02 ; elapsed = 00:00:08 . Memory (MB): peak = 1194.922 ; gain = 569.625
+INFO: [Timing 38-480] Writing timing data to binary archive.
+INFO: [Common 17-1381] The checkpoint 'D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file led_runner_drc_opted.rpt -pb led_runner_drc_opted.pb -rpx led_runner_drc_opted.rpx
+Command: report_drc -file led_runner_drc_opted.rpt -pb led_runner_drc_opted.pb -rpx led_runner_drc_opted.rpx
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.1/data/ip'.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_drc_opted.rpt.
+report_drc completed successfully
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1194.922 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 709b0d6e
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1194.922 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1205.930 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 81349ef8
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.380 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: ebf8df54
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.394 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: ebf8df54
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.395 . Memory (MB): peak = 1206.238 ; gain = 11.316
+Phase 1 Placer Initialization | Checksum: ebf8df54
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.395 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 17d4ba24c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.684 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 17d4ba24c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.685 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 237410b92
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.698 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 1ba852dd2
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.702 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 1ba852dd2
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.703 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.5 Small Shape Detail Placement
+Phase 3.5 Small Shape Detail Placement | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.768 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.6 Re-assign LUT pins
+Phase 3.6 Re-assign LUT pins | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.770 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 3.7 Pipeline Register Optimization
+Phase 3.7 Pipeline Register Optimization | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.771 . Memory (MB): peak = 1206.238 ; gain = 11.316
+Phase 3 Detail Placement | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.771 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+Phase 4.1 Post Commit Optimization | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.772 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.775 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 1897178f0
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.775 . Memory (MB): peak = 1206.238 ; gain = 11.316
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 154913d2a
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.775 . Memory (MB): peak = 1206.238 ; gain = 11.316
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 154913d2a
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.776 . Memory (MB): peak = 1206.238 ; gain = 11.316
+Ending Placer Task | Checksum: 6ecc8c7d
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.778 . Memory (MB): peak = 1206.238 ; gain = 11.316
+INFO: [Common 17-83] Releasing license: Implementation
+45 Infos, 0 Warnings, 200 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1208.062 ; gain = 1.824
+INFO: [Common 17-1381] The checkpoint 'D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file led_runner_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 1215.125 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file led_runner_utilization_placed.rpt -pb led_runner_utilization_placed.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1215.125 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file led_runner_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1215.125 ; gain = 0.000
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a100t'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: 39c8d1f9 ConstDB: 0 ShapeSum: 3503ba84 RouteDB: 0
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 14923dc3d
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1369.523 ; gain = 154.398
+Post Restoration Checksum: NetGraph: c4f8a9f0 NumContArr: 842b324d Constraints: 0 Timing: 0
+
+Phase 2 Router Initialization
+INFO: [Route 35-64] No timing constraints were detected. The router will operate in resource-optimization mode.
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 14923dc3d
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.637 ; gain = 160.512
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 14923dc3d
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1375.637 ; gain = 160.512
+ Number of Nodes with overlaps = 0
+Phase 2 Router Initialization | Checksum: 15efa049f
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 10238bcec
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 0
+Phase 4.1 Global Iteration 0 | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+Phase 4 Rip-up And Reroute | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 5 Delay and Skew Optimization
+Phase 5 Delay and Skew Optimization | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+Phase 6.1 Hold Fix Iter | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+Phase 6 Post Hold Fix | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0.00504853 %
+  Global Horizontal Routing Utilization  = 0.00362319 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Congestion Report
+North Dir 1x1 Area, Max Cong = 8.10811%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 9.00901%, No Congested Regions.
+East Dir 1x1 Area, Max Cong = 4.41176%, No Congested Regions.
+West Dir 1x1 Area, Max Cong = 10.2941%, No Congested Regions.
+
+------------------------------
+Reporting congestion hotspots
+------------------------------
+Direction: North
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: South
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: East
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: West
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+
+Phase 7 Route finalize | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 174f3f7a6
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 12bddef70
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+58 Infos, 0 Warnings, 200 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:00:05 ; elapsed = 00:00:14 . Memory (MB): peak = 1382.676 ; gain = 167.551
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.054 . Memory (MB): peak = 1382.676 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_routed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file led_runner_drc_routed.rpt -pb led_runner_drc_routed.pb -rpx led_runner_drc_routed.rpx
+Command: report_drc -file led_runner_drc_routed.rpt -pb led_runner_drc_routed.pb -rpx led_runner_drc_routed.rpx
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file led_runner_methodology_drc_routed.rpt -pb led_runner_methodology_drc_routed.pb -rpx led_runner_methodology_drc_routed.rpx
+Command: report_methodology -file led_runner_methodology_drc_routed.rpt -pb led_runner_methodology_drc_routed.pb -rpx led_runner_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 2 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file D:/Vivado2018/led_runner/led_runner.runs/impl_1/led_runner_methodology_drc_routed.rpt.
+report_methodology completed successfully
+INFO: [runtcl-4] Executing : report_power -file led_runner_power_routed.rpt -pb led_runner_power_summary_routed.pb -rpx led_runner_power_routed.rpx
+Command: report_power -file led_runner_power_routed.rpt -pb led_runner_power_summary_routed.pb -rpx led_runner_power_routed.rpx
+WARNING: [Power 33-232] No user defined clocks were found in the design!
+Resolution: Please specify clocks using create_clock/create_generated_clock for sequential elements. For pure combinatorial circuits, please specify a virtual clock, otherwise the vectorless estimation might be inaccurate
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+70 Infos, 1 Warnings, 200 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+INFO: [runtcl-4] Executing : report_route_status -file led_runner_route_status.rpt -pb led_runner_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -file led_runner_timing_summary_routed.rpt -pb led_runner_timing_summary_routed.pb -rpx led_runner_timing_summary_routed.rpx -warn_on_violation 
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+WARNING: [Timing 38-313] There are no user specified timing constraints. Timing constraints are needed for proper timing analysis.
+INFO: [runtcl-4] Executing : report_incremental_reuse -file led_runner_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-545] No incremental reuse to report, no incremental placement and routing data was found.
+INFO: [runtcl-4] Executing : report_clock_utilization -file led_runner_clock_utilization_routed.rpt
+INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file route_report_bus_skew_0.rpt -rpx route_report_bus_skew_0.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max, Timing Stage: Requireds.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Common 17-206] Exiting Vivado at Tue Jul 14 16:17:55 2026...
